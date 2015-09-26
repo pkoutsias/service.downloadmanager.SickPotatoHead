@@ -22,14 +22,15 @@ def main():
     __addon__             = xbmcaddon.Addon(id='service.downloadmanager.SickPotatoHead')
     __addonpath__         = xbmc.translatePath(__addon__.getAddonInfo('path'))
     __addonhome__         = xbmc.translatePath(__addon__.getAddonInfo('profile'))
+    __dependencies__      = xbmc.translatePath(xbmcaddon.Addon(id='script.module.audo-dependencies').getAddonInfo('path'))
     
     # settings
-    pdefaultsuitesettings = xbmc.translatePath(__addonpath__ + '/settings-default.xml')
-    psuitesettings        = xbmc.translatePath(__addonhome__ + 'settings.xml')
-    pxbmcsettings         = xbmc.translatePath('special://home/userdata/guisettings.xml')
-    psickbeardsettings    = xbmc.translatePath(__addonhome__ + 'sickbeard.ini')
+    pdefaultsuitesettings 		= xbmc.translatePath(__addonpath__ + '/settings-default.xml')
+    psuitesettings        		= xbmc.translatePath(__addonhome__ + 'settings.xml')
+    pxbmcsettings         		= xbmc.translatePath('special://home/userdata/guisettings.xml')
+    psickbeardsettings    		= xbmc.translatePath(__addonhome__ + 'sickbeard.ini')
     pcouchpotatoserversettings  = xbmc.translatePath(__addonhome__ + 'couchpotatoserver.ini')
-    pheadphonessettings   = xbmc.translatePath(__addonhome__ + 'headphones.ini')
+    pheadphonessettings   		= xbmc.translatePath(__addonhome__ + 'headphones.ini')
     
     # create the settings file if missing
     if not xbmcvfs.exists(psuitesettings):
@@ -151,7 +152,7 @@ def main():
     
         xbmcvfs.File(xbmc.translatePath(ppylib + '/arch.' + parch), 'w').close()
     
-    os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + ppylib
+    os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + ppylib + ':' + __dependencies__ + '/lib'
     os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + (xbmc.translatePath(__addonpath__ + '/bin'))
     
     # SickBeard start
@@ -162,7 +163,7 @@ def main():
         defaultconfig = ConfigObj()
         defaultconfig['General'] = {}
         defaultconfig['General']['launch_browser']             = '0'
-        defaultconfig['General']['version_notify']             = '0'
+        defaultconfig['General']['version_notify']             = '1'
         defaultconfig['General']['web_port']                   = '8082'
         defaultconfig['General']['web_host']                   = host
         defaultconfig['General']['web_username']               = user
@@ -247,8 +248,8 @@ def main():
         defaultconfig['core']['host']                          = host
         defaultconfig['core']['data_dir']                      = __addonhome__
         defaultconfig['updater'] = {}
-        defaultconfig['updater']['enabled']                    = '0'
-        defaultconfig['updater']['notification']               = '0'
+        defaultconfig['updater']['enabled']                    = '1'
+        defaultconfig['updater']['notification']               = '1'
         defaultconfig['updater']['automatic']                  = '0'
         defaultconfig['xbmc'] = {}
         defaultconfig['xbmc']['enabled']                       = '1'
