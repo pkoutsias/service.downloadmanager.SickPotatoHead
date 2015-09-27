@@ -159,31 +159,31 @@ def main():
     try:
         # write SickBeard settings
         # ------------------------
-        sickbeardconfig = ConfigObj(psickbeardsettings, create_empty=True)
-        defaultconfig = ConfigObj()
-        defaultconfig['General'] = {}
-        defaultconfig['General']['launch_browser']             = '0'
-        defaultconfig['General']['version_notify']             = '1'
-        defaultconfig['General']['web_port']                   = '8082'
-        defaultconfig['General']['web_host']                   = host
-        defaultconfig['General']['web_username']               = user
-        defaultconfig['General']['web_password']               = pwd
-        defaultconfig['General']['cache_dir']                  = __addonhome__ + 'sbcache'
-        defaultconfig['General']['log_dir']                    = __addonhome__ + 'logs'
-        defaultconfig['XBMC'] = {}
-        defaultconfig['XBMC']['use_xbmc']                      = '1'
-        defaultconfig['XBMC']['xbmc_host']                     = 'localhost:' + xbmcport
-        defaultconfig['XBMC']['xbmc_username']                 = xbmcuser
-        defaultconfig['XBMC']['xbmc_password']                 = xbmcpwd
-        defaultconfig['TORRENT'] = {}
-    
-        if transauth:
-            defaultconfig['TORRENT']['torrent_username']           = transuser
-            defaultconfig['TORRENT']['torrent_password']           = transpwd
-            defaultconfig['TORRENT']['torrent_host']               = 'http://localhost:9091/'
-    
         if sbfirstlaunch:
+            sickbeardconfig = ConfigObj(psickbeardsettings, create_empty=True)
+            defaultconfig = ConfigObj()
+            defaultconfig['General'] = {}
+            defaultconfig['General']['launch_browser']             = '0'
+            defaultconfig['General']['version_notify']             = '1'
+            defaultconfig['General']['web_port']                   = '8082'
+            defaultconfig['General']['web_host']                   = host
+            defaultconfig['General']['web_username']               = user
+            defaultconfig['General']['web_password']               = pwd
+            defaultconfig['General']['cache_dir']                  = __addonhome__ + 'sbcache'
+            defaultconfig['General']['log_dir']                    = __addonhome__ + 'logs'
+            defaultconfig['XBMC'] = {}
+            defaultconfig['XBMC']['use_xbmc']                      = '1'
+            defaultconfig['XBMC']['xbmc_host']                     = 'localhost:' + xbmcport
+            defaultconfig['XBMC']['xbmc_username']                 = xbmcuser
+            defaultconfig['XBMC']['xbmc_password']                 = xbmcpwd
+            defaultconfig['TORRENT'] = {}
             defaultconfig['TORRENT']['torrent_path']               = psickpotatoheadcompletetv
+
+            if transauth:
+                defaultconfig['TORRENT']['torrent_username']           = transuser
+                defaultconfig['TORRENT']['torrent_password']           = transpwd
+                defaultconfig['TORRENT']['torrent_host']               = 'http://localhost:9091/'
+
             defaultconfig['General']['tv_download_dir']            = psickpotatoheadcomplete
             defaultconfig['General']['metadata_xbmc_12plus']       = '0|0|0|0|0|0|0|0|0|0'
             defaultconfig['General']['keep_processed_dir']         = '0'
@@ -213,8 +213,8 @@ def main():
             defaultconfig['XBMC']['xbmc_update_library']           = '1'
             defaultconfig['XBMC']['xbmc_update_full']              = '1'
     
-        sickbeardconfig.merge(defaultconfig)
-        sickbeardconfig.write()
+            sickbeardconfig.merge(defaultconfig)
+            sickbeardconfig.write()
     
         # launch SickBeard
         # ----------------
@@ -238,33 +238,33 @@ def main():
     
         # write CouchPotatoServer settings
         # --------------------------
-        couchpotatoserverconfig = ConfigObj(pcouchpotatoserversettings, create_empty=True, list_values=False)
-        defaultconfig = ConfigObj()
-        defaultconfig['core'] = {}
-        defaultconfig['core']['username']                      = user
-        defaultconfig['core']['password']                      = md5pwd
-        defaultconfig['core']['port']                          = '8083'
-        defaultconfig['core']['launch_browser']                = '0'
-        defaultconfig['core']['host']                          = host
-        defaultconfig['core']['data_dir']                      = __addonhome__
-        defaultconfig['updater'] = {}
-        defaultconfig['updater']['enabled']                    = '1'
-        defaultconfig['updater']['notification']               = '1'
-        defaultconfig['updater']['automatic']                  = '0'
-        defaultconfig['xbmc'] = {}
-        defaultconfig['xbmc']['enabled']                       = '1'
-        defaultconfig['xbmc']['host']                          = 'localhost:' + xbmcport
-        defaultconfig['xbmc']['username']                      = xbmcuser
-        defaultconfig['xbmc']['password']                      = xbmcpwd
-        defaultconfig['transmission'] = {}
-    
-        if transauth:
-            defaultconfig['transmission']['username']              = transuser
-            defaultconfig['transmission']['password']              = transpwd
-            defaultconfig['transmission']['host']                  = 'localhost:9091'
-    
         if cpfirstlaunch:
+            couchpotatoserverconfig = ConfigObj(pcouchpotatoserversettings, create_empty=True, list_values=False)
+            defaultconfig = ConfigObj()
+            defaultconfig['core'] = {}
+            defaultconfig['core']['username']                      = user
+            defaultconfig['core']['password']                      = md5pwd
+            defaultconfig['core']['port']                          = '8083'
+            defaultconfig['core']['launch_browser']                = '0'
+            defaultconfig['core']['host']                          = host
+            defaultconfig['core']['data_dir']                      = __addonhome__
+            defaultconfig['updater'] = {}
+            defaultconfig['updater']['enabled']                    = '1'
+            defaultconfig['updater']['notification']               = '1'
+            defaultconfig['updater']['automatic']                  = '0'
+            defaultconfig['xbmc'] = {}
+            defaultconfig['xbmc']['enabled']                       = '1'
+            defaultconfig['xbmc']['host']                          = 'localhost:' + xbmcport
+            defaultconfig['xbmc']['username']                      = xbmcuser
+            defaultconfig['xbmc']['password']                      = xbmcpwd
+            defaultconfig['transmission'] = {}
             defaultconfig['transmission']['directory']             = psickpotatoheadcompletemov
+
+            if transauth:
+                defaultconfig['transmission']['username']              = transuser
+                defaultconfig['transmission']['password']              = transpwd
+                defaultconfig['transmission']['host']                  = 'localhost:9091'
+
             defaultconfig['xbmc']['xbmc_update_library']           = '1'
             defaultconfig['xbmc']['xbmc_update_full']              = '1'
             defaultconfig['xbmc']['xbmc_notify_onsnatch']          = '1'
@@ -290,8 +290,8 @@ def main():
             defaultconfig['searcher'] = {}
             defaultconfig['searcher']['preferred_method']          = 'torrent'
     
-        couchpotatoserverconfig.merge(defaultconfig)
-        couchpotatoserverconfig.write()
+            couchpotatoserverconfig.merge(defaultconfig)
+            couchpotatoserverconfig.write()
     
         # launch CouchPotatoServer
         # ------------------
@@ -308,31 +308,31 @@ def main():
     try:
         # write Headphones settings
         # -------------------------
-        headphonesconfig = ConfigObj(pheadphonessettings, create_empty=True)
-        defaultconfig = ConfigObj()
-        defaultconfig['General'] = {}
-        defaultconfig['General']['launch_browser']             = '0'
-        defaultconfig['General']['http_port']                  = '8084'
-        defaultconfig['General']['http_host']                  = host
-        defaultconfig['General']['http_username']              = user
-        defaultconfig['General']['http_password']              = pwd
-        defaultconfig['General']['check_github']               = '0'
-        defaultconfig['General']['check_github_on_startup']    = '0'
-        defaultconfig['General']['cache_dir']                  = __addonhome__ + 'hpcache'
-        defaultconfig['General']['log_dir']                    = __addonhome__ + 'logs'
-        defaultconfig['XBMC'] = {}
-        defaultconfig['XBMC']['xbmc_enabled']                  = '1'
-        defaultconfig['XBMC']['xbmc_host']                     = 'localhost:' + xbmcport
-        defaultconfig['XBMC']['xbmc_username']                 = xbmcuser
-        defaultconfig['XBMC']['xbmc_password']                 = xbmcpwd
-        defaultconfig['Transmission'] = {}
-    
-        if transauth:
-            defaultconfig['Transmission']['transmission_username'] = transuser
-            defaultconfig['Transmission']['transmission_password'] = transpwd
-            defaultconfig['Transmission']['transmission_host']     = 'http://localhost:9091'
-    
         if hpfirstlaunch:
+            headphonesconfig = ConfigObj(pheadphonessettings, create_empty=True)
+            defaultconfig = ConfigObj()
+            defaultconfig['General'] = {}
+            defaultconfig['General']['launch_browser']             = '0'
+            defaultconfig['General']['http_port']                  = '8084'
+            defaultconfig['General']['http_host']                  = host
+            defaultconfig['General']['http_username']              = user
+            defaultconfig['General']['http_password']              = pwd
+            defaultconfig['General']['check_github']               = '0'
+            defaultconfig['General']['check_github_on_startup']    = '0'
+            defaultconfig['General']['cache_dir']                  = __addonhome__ + 'hpcache'
+            defaultconfig['General']['log_dir']                    = __addonhome__ + 'logs'
+            defaultconfig['XBMC'] = {}
+            defaultconfig['XBMC']['xbmc_enabled']                  = '1'
+            defaultconfig['XBMC']['xbmc_host']                     = 'localhost:' + xbmcport
+            defaultconfig['XBMC']['xbmc_username']                 = xbmcuser
+            defaultconfig['XBMC']['xbmc_password']                 = xbmcpwd
+            defaultconfig['Transmission'] = {}
+
+            if transauth:
+                defaultconfig['Transmission']['transmission_username'] = transuser
+                defaultconfig['Transmission']['transmission_password'] = transpwd
+                defaultconfig['Transmission']['transmission_host']     = 'http://localhost:9091'
+
             defaultconfig['XBMC']['xbmc_update']                   = '1'
             defaultconfig['XBMC']['xbmc_notify']                   = '1'
             defaultconfig['General']['music_dir']                  = phomedir + 'music'
@@ -346,10 +346,10 @@ def main():
             defaultconfig['General']['kat']                        = '1'
             defaultconfig['General']['mininova']                   = '1'
             defaultconfig['General']['piratebay']                  = '1'
-    
-        headphonesconfig.merge(defaultconfig)
-        headphonesconfig.write()
-    
+
+            headphonesconfig.merge(defaultconfig)
+            headphonesconfig.write()
+
         # launch Headphones
         # -----------------
         if headphones_launch:
