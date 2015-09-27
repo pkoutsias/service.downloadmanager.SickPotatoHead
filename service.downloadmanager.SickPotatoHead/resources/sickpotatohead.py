@@ -155,6 +155,9 @@ def main():
     os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + ppylib + ':' + __dependencies__ + '/lib'
     os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + (xbmc.translatePath(__addonpath__ + '/bin'))
     
+    os_env = os.environ
+    os_env["PATH"] = (xbmc.translatePath(__dependencies__ + '/bin:')) + os_env["PATH"]
+    
     # SickBeard start
     try:
         # write SickBeard settings
@@ -220,7 +223,7 @@ def main():
         # ----------------
         if sickbeard_launch:
             xbmc.log('SickPotatoHead: Launching SickBeard...', level=xbmc.LOGDEBUG)
-            subprocess.call(sickbeard, close_fds=True)
+            subprocess.call(sickbeard, close_fds=True, env=os_env)
             xbmc.log('SickPotatoHead: ...done', level=xbmc.LOGDEBUG)
     except Exception, e:
         xbmc.log('SickPotatoHead: SickBeard exception occurred', level=xbmc.LOGERROR)
@@ -297,7 +300,7 @@ def main():
         # ------------------
         if couchpotato_launch:
             xbmc.log('SickPotatoHead: Launching CouchPotatoServer...', level=xbmc.LOGDEBUG)
-            subprocess.call(couchpotatoserver, close_fds=True)
+            subprocess.call(couchpotatoserver, close_fds=True, env=os_env)
             xbmc.log('SickPotatoHead: ...done', level=xbmc.LOGDEBUG)
     except Exception, e:
         xbmc.log('SickPotatoHead: CouchPotatoServer exception occurred', level=xbmc.LOGERROR)
@@ -354,7 +357,7 @@ def main():
         # -----------------
         if headphones_launch:
             xbmc.log('SickPotatoHead: Launching Headphones...', level=xbmc.LOGDEBUG)
-            subprocess.call(headphones, close_fds=True)
+            subprocess.call(headphones, close_fds=True, env=os_env)
             xbmc.log('SickPotatoHead: ...done', level=xbmc.LOGDEBUG)
     except Exception, e:
         xbmc.log('SickPotatoHead: Headphones exception occurred', level=xbmc.LOGERROR)
