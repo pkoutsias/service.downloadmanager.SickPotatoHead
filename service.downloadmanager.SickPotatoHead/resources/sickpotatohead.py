@@ -127,30 +127,15 @@ def main():
     
     xbmc.log('SickPotatoHead: ' + parch + ' architecture detected', level=xbmc.LOGDEBUG)
     
-    if not xbmcvfs.exists(xbmc.translatePath(ppylib + '/arch.' + parch)):
-        xbmc.log('SickPotatoHead: Setting up binaries:', level=xbmc.LOGDEBUG)
-    
-        if xbmcvfs.exists(xbmc.translatePath(ppylib + '/arch.i686')):
-            xbmcvfs.delete(xbmc.translatePath(ppylib + '/arch.i686'))
-        if xbmcvfs.exists(xbmc.translatePath(ppylib + '/arch.x86_64')):
-            xbmcvfs.delete(xbmc.translatePath(ppylib + '/arch.x86_64'))
-        if xbmcvfs.exists(xbmc.translatePath(ppylib + '/arch.armv6l')):
-            xbmcvfs.delete(xbmc.translatePath(ppylib + '/arch.armv6l'))
-        if xbmcvfs.exists(xbmc.translatePath(ppylib + '/arch.armv7l')):
-            xbmcvfs.delete(xbmc.translatePath(ppylib + '/arch.armv7l'))
-    
-        punrar                        = xbmc.translatePath(__addonpath__ + '/bin/unrar')
-    
-        try:
-            funrar                        = xbmc.translatePath(ppylib + '/multiarch/unrar.' + parch)
-            xbmcvfs.copy(funrar, punrar)
-            os.chmod(punrar, 0755)
-            xbmc.log('SickPotatoHead: Copied unrar for ' + parch, level=xbmc.LOGDEBUG)
-        except Exception, e:
-            xbmc.log('SickPotatoHead: Error Copying unrar for ' + parch, level=xbmc.LOGERROR)
-            xbmc.log(str(e), level=xbmc.LOGERROR)
-    
-        xbmcvfs.File(xbmc.translatePath(ppylib + '/arch.' + parch), 'w').close()
+    if not xbmcvfs.exists(xbmc.translatePath(__dependencies__ + '/arch.' + parch)):
+	    xbmc.log('AUDO: Setting up binaries:', level=xbmc.LOGDEBUG)
+	    try:
+	        xbmc.executebuiltin('XBMC.RunScript(%s)' % xbmc.translatePath(__dependencies__ + '/default.py'), True)
+	    except Exception, e:
+	        xbmc.log('AUDO: Error setting up binaries:', level=xbmc.LOGERROR)
+	        xbmc.log(str(e), level=xbmc.LOGERROR)
+	    while not xbmcvfs.exists(xbmc.translatePath(__dependencies__ + '/arch.' + parch)):
+	        time.sleep(5)
     
     os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + ppylib + ':' + __dependencies__ + '/lib'
     os.environ['PYTHONPATH'] = str(os.environ.get('PYTHONPATH')) + ':' + (xbmc.translatePath(__addonpath__ + '/bin'))
