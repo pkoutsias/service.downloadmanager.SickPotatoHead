@@ -2,6 +2,7 @@
 from xml.dom.minidom import parseString
 from lib.configobj import ConfigObj
 import os
+import time
 import subprocess
 import hashlib
 import xbmc
